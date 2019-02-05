@@ -572,7 +572,7 @@ module.exports = function (grunt) {
     
     grunt.registerTask('game', 'Phaser custom build', function() {
 
-        grunt.option('exclude', 'arcade,ninja,p2,tilemaps,particles,creature,weapon');
+        grunt.option('exclude', 'arcade,ninja,p2,tilemaps,particles,creature,weapon,rope');
         grunt.option('filename', 'phaser');
         grunt.option('sourcemap', true);
         grunt.option('copy', true);
