@@ -6,7 +6,7 @@ Phaser CE is a fast, free, and fun open source HTML5 game framework. It uses a c
 
 Phaser v2 was built and maintained by [Photon Storm](http://www.photonstorm.com) and turned over to the community (as Phaser CE) in November 2016. [Phaser v3](http://phaser.io/phaser3) is in active development.
 
-The [current Phaser CE release is 2.11.1](https://github.com/photonstorm/phaser-ce/releases/tag/v2.11.1).
+The [current Phaser CE release is 2.12.0](https://github.com/photonstorm/phaser-ce/releases/tag/v2.12.0).
 
 - **Visit:** The [Phaser website](http://phaser.io) and follow on [Twitter](https://twitter.com/photonstorm) (#[phaserjs](https://twitter.com/hashtag/phaserjs))
 - **Learn:** [API Docs](https://photonstorm.github.io/phaser-ce/), [Support Forum][forum] and [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)
@@ -88,16 +88,16 @@ Please see additional steps for [Browserify/CommonJS](#browserify) and [Webpack]
 [Phaser CE is on jsDelivr](http://www.jsdelivr.com/projects/phaser-ce), a "super-fast CDN for developers". Include the following in your html:
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/phaser-ce@2.11.1/build/phaser.js"></script>
+<script src="//cdn.jsdelivr.net/npm/phaser-ce@2.12.0/build/phaser.js"></script>
 ```
 
 or the minified version:
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/phaser-ce@2.11.1"></script>
+<script src="//cdn.jsdelivr.net/npm/phaser-ce@2.12.0"></script>
 ```
 
-[Custom builds](https://cdn.jsdelivr.net/npm/phaser-ce@2.11.1/build/custom/) are available too.
+[Custom builds](https://cdn.jsdelivr.net/npm/phaser-ce@2.12.0/build/custom/) are available too.
 
 <a name="getting-started"></a>
 
@@ -290,45 +290,6 @@ Written something cool in Phaser? Please tell us about it in the [forum][forum],
 
 See [Change Log](CHANGELOG.md).
 
-## Version 2.11.1 - 2 October 2018
-
-### Bug Fixes
-
-* Fixed an error passing `box2d` options in the game configuration settings (#553).
-* Fixed some compressed texture formats failing to load (#562).
-* Fixed an issue where if the WebGL renderer failed to initialize that RenderTexture's would still try to use it if no renderer was provided (#575).
-* Fixed an inconsistent return value in BitmapData#copy (#580).
-* Tweens are now cleaned up completely when destroying the game (#581).
-* Game now nulls a reference to itself from PIXI after destroy (#583).
-* Fixed a BitmapFont frame error when using trim frame in atlas (#587).
-* Fixed BitmapData#shadow ignoring blur or x/y offset when set to 0 (#591).
-
-### Updates
-
-* AnimationParser.spriteSheet now tells you the minimum image dimensions it expects if it fails to produce at least one complete frame from the spritesheet (#559).
-* Game now checks SoundManager's `muteOnPause` property whenever the game's `paused` property is set so one can control whether sounds play when the game is manually paused. Previously, the property was only used when the game focus was lost in the DOM (#572).
-
-### TypeScript definitions
-
-* Fixed the definition for bitmapText() in GameObjectFactory (#561).
-* Fixed the definition for clear() in RenderTexture (#573).
-* Fixed the definition for Video volume.
-
-### Documentation
-
-* Changed [the game configuration object's](https://photonstorm.github.io/phaser-ce/global.html#GameConfig) `canvasID` property name. The previous name, `canvasId`, was incorrect and would be ignored.
-* Clarified the `spacing` argument in Loader#spritesheet (#448, #559).
-* Corrected P2#createGearConstraint (#566).
-* Corrected Tilemap#copy, Tilemap#replace (#586).
-* Typo (#594).
-* Corrected Key#upDuration, Keyboard#upDuration (#595).
-
-### Thanks
-
-@B10215029, @CorayThan, @FostUK, @Jazcash, @Lucas-C, @Mertank, @Nek-, @aeonwilliams, @dywedir, @foreverip, @giniwren, @josalmi, @joshlory, @rydash, @samme, @tiagokeller, @zhaxiu3
-
-For changes in previous releases please see the extensive [Change Log](https://github.com/photonstorm/phaser-ce/blob/master/CHANGELOG.md).
-
 # License
 
 Phaser is released under the [MIT License](https://opensource.org/licenses/MIT).
@@ -349,10 +310,10 @@ All rights reserved.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-44006568-2/phaser/index)](https://github.com/igrigorik/ga-beacon)
 
-[get-js]: https://github.com/photonstorm/phaser-ce/releases/download/v2.11.1/phaser.js
-[get-minjs]: https://github.com/photonstorm/phaser-ce/releases/download/v2.11.1/phaser.min.js
-[get-zip]: https://github.com/photonstorm/phaser-ce/archive/v2.11.1.zip
-[get-tgz]: https://github.com/photonstorm/phaser-ce/archive/v2.11.1.tar.gz
+[get-js]: https://github.com/photonstorm/phaser-ce/releases/download/v2.12.0/phaser.js
+[get-minjs]: https://github.com/photonstorm/phaser-ce/releases/download/v2.12.0/phaser.min.js
+[get-zip]: https://github.com/photonstorm/phaser-ce/archive/v2.12.0.zip
+[get-tgz]: https://github.com/photonstorm/phaser-ce/archive/v2.12.0.tar.gz
 [clone-http]: https://github.com/photonstorm/phaser.git
 [clone-ssh]: ssh://git@github.com:photonstorm/phaser.git
 [clone-svn]: https://github.com/photonstorm/phaser
