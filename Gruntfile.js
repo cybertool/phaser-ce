@@ -580,6 +580,8 @@ module.exports = function (grunt) {
 
         grunt.task.run('custom');
 
+        grunt.task.run('tsdocs');
+
     });
 
 };
