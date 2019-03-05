@@ -1,6 +1,12 @@
 # Change Log
 
-## Version 2.12.0 - 6 February 2018
+## Unreleased
+
+### Bug Fixes
+
+* Fixed undefined value in Phaser.BitmapData#smoothed.
+
+## Version 2.12.0 - 6 February 2019
 
 If you're using the `loadAnchors` argument in the Phaser.Creature constructor, you'll have to change your code.
 
