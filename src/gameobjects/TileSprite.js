@@ -166,12 +166,10 @@ Phaser.Component.Core.install.call(Phaser.TileSprite.prototype, [
     'LifeSpan',
     'LoadTexture',
     'Overlap',
-    'PhysicsBody',
     'Reset',
     'Smoothed'
 ]);
 
-Phaser.TileSprite.prototype.preUpdatePhysics = Phaser.Component.PhysicsBody.preUpdate;
 Phaser.TileSprite.prototype.preUpdateLifeSpan = Phaser.Component.LifeSpan.preUpdate;
 Phaser.TileSprite.prototype.preUpdateInWorld = Phaser.Component.InWorld.preUpdate;
 Phaser.TileSprite.prototype.preUpdateCore = Phaser.Component.Core.preUpdate;
@@ -196,7 +194,7 @@ Phaser.TileSprite.prototype.preUpdate = function ()
         this.tilePosition.y += this._scroll.y * this.game.time.physicsElapsed;
     }
 
-    if (!this.preUpdatePhysics() || !this.preUpdateLifeSpan() || !this.preUpdateInWorld())
+    if (!this.preUpdateLifeSpan() || !this.preUpdateInWorld())
     {
         return false;
     }

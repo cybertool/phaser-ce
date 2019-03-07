@@ -87,13 +87,11 @@ Phaser.Component.Core.install.call(Phaser.Sprite.prototype, [
     'LifeSpan',
     'LoadTexture',
     'Overlap',
-    'PhysicsBody',
     'Reset',
     'ScaleMinMax',
     'Smoothed'
 ]);
 
-Phaser.Sprite.prototype.preUpdatePhysics = Phaser.Component.PhysicsBody.preUpdate;
 Phaser.Sprite.prototype.preUpdateLifeSpan = Phaser.Component.LifeSpan.preUpdate;
 Phaser.Sprite.prototype.preUpdateInWorld = Phaser.Component.InWorld.preUpdate;
 Phaser.Sprite.prototype.preUpdateCore = Phaser.Component.Core.preUpdate;
@@ -108,7 +106,7 @@ Phaser.Sprite.prototype.preUpdateCore = Phaser.Component.Core.preUpdate;
 Phaser.Sprite.prototype.preUpdate = function ()
 {
 
-    if (!this.preUpdatePhysics() || !this.preUpdateLifeSpan() || !this.preUpdateInWorld())
+    if (!this.preUpdateLifeSpan() || !this.preUpdateInWorld())
     {
         return false;
     }

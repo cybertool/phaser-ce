@@ -227,7 +227,7 @@ Phaser.Text.prototype.constructor = Phaser.Text;
 Phaser.Text.prototype.preUpdate = function ()
 {
 
-    if (!this.preUpdatePhysics() || !this.preUpdateLifeSpan() || !this.preUpdateInWorld())
+    if (!this.preUpdateLifeSpan() || !this.preUpdateInWorld())
     {
         return false;
     }
