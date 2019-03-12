@@ -1112,9 +1112,7 @@ Phaser.Game.prototype = {
             this.scale.preUpdate();
             this.debug.preUpdate();
             this.camera.preUpdate();
-            // this.physics.preUpdate();
             this.state.preUpdate(timeStep);
-            // this.plugins.preUpdate(timeStep);
             this.stage.preUpdate();
 
             this.state.update();
@@ -1122,12 +1120,9 @@ Phaser.Game.prototype = {
             this.tweens.update();
             this.sound.update();
             this.input.update();
-            // this.physics.update();
-            // this.plugins.update();
 
             this.stage.postUpdate();
             this.state.postUpdate();
-            // this.plugins.postUpdate();
         }
         else
         {
@@ -1171,11 +1166,7 @@ Phaser.Game.prototype = {
 
         this.renderer.render(this.stage);
 
-        // this.plugins.render(elapsedTime);
-
         this.state.render(elapsedTime);
-
-        // this.plugins.postRender(elapsedTime);
 
     },
 
