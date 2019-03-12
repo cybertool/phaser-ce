@@ -174,25 +174,6 @@ PIXI.CanvasRenderer.prototype.render = function (root)
 
     this.context.globalCompositeOperation = 'source-over';
 
-    if (navigator.isCocoonJS && this.view.screencanvas)
-    {
-        this.context.fillStyle = 'black';
-        this.context.clear();
-    }
-
-    if (this.clearBeforeRender)
-    {
-        if (this.transparent)
-        {
-            this.context.clearRect(0, 0, this.width, this.height);
-        }
-        else if (root._bgColor)
-        {
-            this.context.fillStyle = root._bgColor.rgba;
-            this.context.fillRect(0, 0, this.width , this.height);
-        }
-    }
-
     this.renderDisplayObject(root);
 
 };
