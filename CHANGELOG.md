@@ -4,7 +4,84 @@
 
 ### Bug Fixes
 
-* Fixed undefined value in Phaser.BitmapData#smoothed.
+* Fixed Point.fuzzyEquals and Point.fuzzyEqualsXY (#634).
+
+### Thanks
+
+@Cerlancism, @samme
+
+## Version 2.13.2 - 22 May 2019
+
+### Bug Fixes
+
+* Fixed an error when destroying or disabling a button from an input handler (#630).
+
+### Thanks
+
+@leandrop20, @photonstorm, @samme, @ts1985, @XWILKINX
+
+## Version 2.13.1 - 15 May 2019
+
+### Bug Fixes
+
+* Fixed incorrect [Sound#currentTime](https://photonstorm.github.io/phaser-ce/Phaser.Sound.html#currentTime) after pause/resume, when using audio tags.
+* Fixed missing mouse movement values when the pointer is locked.
+* Fixed elastic easing functions.
+
+### Thanks
+
+@micsun-al, @photonstorm, @samme
+
+## Version 2.13.0 - 11 May 2019
+
+### API Changes
+
+* When using audio tags, [Sound#currentTime](https://photonstorm.github.io/phaser-ce/Phaser.Sound.html#currentTime) is now always synced to the audio source. This should prevent timing errors from playback latency (#585). After [Sound#play()](https://photonstorm.github.io/phaser-ce/Phaser.Sound.html#play) is called, [Sound#isPlaying](https://photonstorm.github.io/phaser-ce/Phaser.Sound.html#isPlaying) and [Sound#onPlay](https://photonstorm.github.io/phaser-ce/Phaser.Sound.html#onPlay) are still triggered immediately (this is consistent with Sounds using Web Audio), but Sound#currentTime will not advance until playback does.
+* When the mouse cursor leaves the game canvas, input out will be triggered only if [Mouse#stopOnGameOut](https://photonstorm.github.io/phaser-ce/Phaser.Mouse.html#stopOnGameOut) is true or [MSPointer#stopOnGameOut](https://photonstorm.github.io/phaser-ce/Phaser.MSPointer.html#stopOnGameOut) is true (#429). They are false by default.
+* [MSPointer#pointerOverCallback](https://photonstorm.github.io/phaser-ce/Phaser.MSPointer.html#pointerOverCallback) replaces MSPointer's use of Mouse#mouseOverCallback.
+* [MSPointer#pointerOutCallback](https://photonstorm.github.io/phaser-ce/Phaser.MSPointer.html#pointerOutCallback) replaces MSPointer's use of Mouse#mouseOutCallback.
+* [MSPointer#stopOnGameOut](https://photonstorm.github.io/phaser-ce/Phaser.MSPointer.html#stopOnGameOut) replaces MSPointer's use of Mouse#stopOnGameOut.
+* Removed Phaser.Mouse.WHEEL_UP. Use [Phaser.MouseWheel.UP](https://photonstorm.github.io/phaser-ce/Phaser.MouseWheel.html#_UP) instead.
+* Removed Phaser.Mouse.WHEEL_DOWN. Use [Phaser.MouseWheel.DOWN](https://photonstorm.github.io/phaser-ce/Phaser.MouseWheel.html#_DOWN) instead.
+* Removed Phaser.Mouse#releasePointerLock. Use [Phaser.PointerLock#exit](https://photonstorm.github.io/phaser-ce/Phaser.PointerLock.html#exit) instead.
+* Removed Phaser.Mouse#requestPointerLock. Use [Phaser.PointerLock#request](https://photonstorm.github.io/phaser-ce/Phaser.PointerLock.html#request) instead.
+
+If you don't want to worry about managing both input handlers, you can disable [MSPointer](https://photonstorm.github.io/phaser-ce/Phaser.MSPointer.html) by passing `{ mspointer: false }` in your game config.
+
+### New Features
+
+* [Loader#tilemapCSV](https://photonstorm.github.io/phaser-ce/Phaser.Loader.html#tilemapCSV) is a shortcut method for loading CSV maps.
+* [Loader#tilemapTiledJSON](https://photonstorm.github.io/phaser-ce/Phaser.Loader.html#tilemapTiledJSON) is a shortcut method for loading Tiled JSON maps.
+
+### Bug Fixes
+
+* Animation speeds are more accurate (#606).
+
+### Thanks
+
+@jf-m, @josalmi, @photonstorm, @samme
+
+## Version 2.12.1 - 6 May 2019
+
+### New Features
+
+* [ScaleManager#startFullScreen](https://photonstorm.github.io/phaser-ce/Phaser.ScaleManager.html#startFullScreen) has an `options` argument.
+
+### Bug Fixes
+
+* Fixed undefined value in [BitmapData#smoothed](https://photonstorm.github.io/phaser-ce/Phaser.BitmapData.html#smoothed).
+* Better tracking of pointer out events (#624).
+* Fixed alpha for different Creature regions (#625).
+
+### Updates
+
+* Videos now have their `playsinline` attribute set.
+* Added a warning for Tiled JSON maps version > 1.1. Object properties and tile properties in these maps may not work in Phaser CE. You can enable the json1 plugin and reexport the map in _Tiled 1.1_ format to use these features in Phaser CE (#623).
+* Hide navigation UI in fullscreen mode in Chrome/Android (#626)
+
+### Thanks
+
+@daniel-nth, @highlyinteractive, @mikeks, @ndee85, @photonstorm, @samme, @thomasMeynckens
 
 ## Version 2.12.0 - 6 February 2019
 

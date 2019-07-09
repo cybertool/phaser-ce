@@ -773,7 +773,7 @@ Phaser.Pointer.prototype = {
         this.screenX = event.screenX;
         this.screenY = event.screenY;
 
-        if (this.isMouse && input.mouse.locked && !fromClick)
+        if (this.isMouse && input.pointerLock.locked && !fromClick)
         {
             this.rawMovementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
             this.rawMovementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
@@ -1044,7 +1044,7 @@ Phaser.Pointer.prototype = {
             input.currentPointers--;
         }
 
-        input.interactiveItems.callAll('_releasedHandler', this);
+        input.callAll('_releasedHandler', this);
 
         if (this._clickTrampolines)
         {

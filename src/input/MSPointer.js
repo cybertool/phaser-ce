@@ -56,19 +56,29 @@ Phaser.MSPointer = function (game)
     this.callbackContext = this.game;
 
     /**
-    * @property {function} pointerDownCallback - A callback that can be fired on a MSPointerDown event.
+    * @property {function} pointerDownCallback - A callback that can be fired on a pointerdown (MSPointerDown) event.
     */
     this.pointerDownCallback = null;
 
     /**
-    * @property {function} pointerMoveCallback - A callback that can be fired on a MSPointerMove event.
+    * @property {function} pointerMoveCallback - A callback that can be fired on a pointermove (MSPointerMove) event.
     */
     this.pointerMoveCallback = null;
 
     /**
-    * @property {function} pointerUpCallback - A callback that can be fired on a MSPointerUp event.
+    * @property {function} pointerUpCallback - A callback that can be fired on a pointerup (MSPointerUp) event.
     */
     this.pointerUpCallback = null;
+
+    /**
+    * @property {function} pointerOutCallback - A callback that can be fired on a pointerout (MSPointerOut) event.
+    */
+    this.pointerOutCallback = null;
+
+    /**
+    * @property {function} pointerOverCallback - A callback that can be fired on a pointerover (MSPointerOver) event.
+    */
+    this.pointerOverCallback = null;
 
     /**
     * If true the PointerEvent will call preventDefault(), canceling the corresponding MouseEvent or
@@ -108,6 +118,13 @@ Phaser.MSPointer = function (game)
     * @default
     */
     this.enabled = true;
+
+    /**
+    * If true Pointer.stop() will be called if the pointer leaves the game canvas.
+    * @property {boolean} stopOnGameOut
+    * @default
+    */
+    this.stopOnGameOut = false;
 
     /**
     * @property {function} _onMSPointerDown - Internal function to handle MSPointer events.
@@ -359,6 +376,8 @@ Phaser.MSPointer.prototype = {
     onPointerUpGlobal: function (event)
     {
 
+        event.identifier = event.pointerId;
+
         if ((event.pointerType === 'mouse' || event.pointerType === 0x00000004) && !this.input.mousePointer.withinGame)
         {
             this.onPointerUp(event);
@@ -391,6 +410,8 @@ Phaser.MSPointer.prototype = {
             event.preventDefault();
         }
 
+        event.identifier = event.pointerId;
+
         if (event.pointerType === 'mouse' || event.pointerType === 0x00000004)
         {
             this.input.mousePointer.withinGame = false;
@@ -405,9 +426,9 @@ Phaser.MSPointer.prototype = {
             }
         }
 
-        if (this.input.mouse.mouseOutCallback)
+        if (this.pointerOutCallback)
         {
-            this.input.mouse.mouseOutCallback.call(this.input.mouse.callbackContext, event);
+            this.pointerOutCallback.call(this.callbackContext, event);
         }
 
         if (!this.input.enabled || !this.enabled)
@@ -415,24 +436,24 @@ Phaser.MSPointer.prototype = {
             return;
         }
 
-        if (this.input.mouse.stopOnGameOut)
+        if (this.stopOnGameOut)
         {
             event.identifier = 0;
 
-            if (pointer)
+            if (!pointer)
             {
-                pointer.stop(event);
+                pointer = this.input.mousePointer;
             }
-            else
-            {
-                this.input.mousePointer.stop(event);
-            }
+
+            pointer.stop(event);
+
+            this.input.callAll('_pointerOutHandler', pointer);
         }
 
     },
 
     /**
-    * The internal method that handles the pointer out event from the browser.
+    * The internal method that handles the pointer over event from the browser.
     *
     * @method Phaser.MSPointer#onPointerOut
     * @param {PointerEvent} event - The native event from the browser. This gets stored in MSPointer.event.
@@ -446,6 +467,8 @@ Phaser.MSPointer.prototype = {
         {
             event.preventDefault();
         }
+
+        event.identifier = event.pointerId;
 
         if (event.pointerType === 'mouse' || event.pointerType === 0x00000004)
         {
@@ -461,9 +484,9 @@ Phaser.MSPointer.prototype = {
             }
         }
 
-        if (this.input.mouse.mouseOverCallback)
+        if (this.pointerOverCallback)
         {
-            this.input.mouse.mouseOverCallback.call(this.input.mouse.callbackContext, event);
+            this.pointerOverCallback.call(this.callbackContext, event);
         }
 
     },

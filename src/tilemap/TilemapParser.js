@@ -70,7 +70,7 @@ Phaser.TilemapParser = {
         }
         else
         {
-            console.warn('Phaser.TilemapParser.parse - No map data found for key ' + key);
+            console.warn('No map data found for key "%s"', key);
         }
 
     },
@@ -344,8 +344,14 @@ Phaser.TilemapParser = {
 
         if (json.orientation !== 'orthogonal')
         {
-            console.warn('TilemapParser.parseTiledJSON - Only orthogonal map types are supported in this version of Phaser');
+            console.warn('Phaser CE supports only orthogonal maps. This map\'s orientation is "%s".', json.orientation);
+
             return null;
+        }
+
+        if (json.version > 1.1)
+        {
+            console.warn('Some features in this Tiled JSON map (version %s) may not work in Phaser CE. Enable the json1 plugin and reexport the map in "Tiled 1.1" format. https://github.com/photonstorm/phaser-ce/issues/623', json.version);
         }
 
         //  Map data will consist of: layers, objects, images, tilesets, sizes
@@ -401,7 +407,8 @@ Phaser.TilemapParser = {
             }
             else if (curl.compression)
             {
-                console.warn('TilemapParser.parseTiledJSON - Layer compression is unsupported, skipping layer \'' + curl.name + '\'');
+                console.warn('Layer compression is unsupported, skipping layer "%s".', curl.name);
+
                 continue;
             }
 
@@ -599,7 +606,7 @@ Phaser.TilemapParser = {
 
             if (set.source)
             {
-                console.warn('Phaser.TilemapParser - Phaser can\'t load external tilesets (%s). Use the Embed Tileset button and then export the map again.', set.source);
+                console.warn('Phaser CE can\'t load external tilesets (%s). Embed the tileset and then export the map again. https://github.com/photonstorm/phaser-ce/issues/273', set.source);
             }
             else if (set.image)
             {

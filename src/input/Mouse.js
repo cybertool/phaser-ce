@@ -38,22 +38,31 @@ Phaser.Mouse = function (game)
     this.callbackContext = this.game;
 
     /**
-    * @property {function} mouseDownCallback - A callback that can be fired when the mouse is pressed down.
+    * A callback that can be fired when the mouse is pressed down.
+    * You should set {@link Phaser.Input.MSPointer#pointerDownCallback} as well.
+    * @property {function} mouseDownCallback
     */
     this.mouseDownCallback = null;
 
     /**
-    * @property {function} mouseUpCallback - A callback that can be fired when the mouse is released from a pressed down state.
+    * A callback that can be fired when the mouse is released from a pressed down state.
+    * You should set {@link Phaser.Input.MSPointer#pointerUpCallback} as well.
+    * @property {function} mouseUpCallback
     */
     this.mouseUpCallback = null;
 
     /**
-    * @property {function} mouseOutCallback - A callback that can be fired when the mouse is no longer over the game canvas.
+    * A callback that can be fired when the mouse is no longer over the game canvas.
+    * You should set {@link Phaser.Input.MSPointer#pointerOutCallback} as well.
+    *
+    * @property {function} mouseOutCallback
     */
     this.mouseOutCallback = null;
 
     /**
-    * @property {function} mouseOverCallback - A callback that can be fired when the mouse enters the game canvas (usually after a mouseout).
+    * A callback that can be fired when the mouse enters the game canvas (usually after a mouseout).
+    * You should set {@link Phaser.Input.MSPointer#pointerOverCallback} as well.
+    * @property {function} mouseOverCallback
     */
     this.mouseOverCallback = null;
 
@@ -80,7 +89,9 @@ Phaser.Mouse = function (game)
     this.enabled = true;
 
     /**
-    * @property {boolean} stopOnGameOut - If true Pointer.stop will be called if the mouse leaves the game canvas.
+    * If true Pointer.stop will be called if the mouse leaves the game canvas.
+    * You should set {@link Phaser.Input.MSPointer#stopOnGameOut} as well.
+    * @property {boolean} stopOnGameOut
     * @default
     */
     this.stopOnGameOut = false;
@@ -160,22 +171,6 @@ Phaser.Mouse.BACK_BUTTON = 3;
 * @type {number}
 */
 Phaser.Mouse.FORWARD_BUTTON = 4;
-
-/**
- * @constant
- * @type {number}
- * @deprecated
- * @see Phaser.MouseWheel.UP
- */
-Phaser.Mouse.WHEEL_UP = 1;
-
-/**
- * @constant
- * @type {number}
- * @deprecated
- * @see Phaser.MouseWheel.DOWN
- */
-Phaser.Mouse.WHEEL_DOWN = -1;
 
 Phaser.Mouse.prototype = {
 
@@ -440,24 +435,15 @@ Phaser.Mouse.prototype = {
             return;
         }
 
+        this.input.mousePointer.updateButtons(event);
+
         if (this.stopOnGameOut)
         {
             event.identifier = 0;
 
             this.input.mousePointer.stop(event);
-        }
 
-        var list = this.input.interactiveItems.list;
-        var i = list.length;
-
-        while (i--)
-        {
-            var item = list[i];
-
-            if (item.enabled)
-            {
-                item._pointerOutHandler(this.input.mousePointer);
-            }
+            this.input.callAll('_pointerOutHandler', this.input.mousePointer);
         }
 
     },
@@ -485,37 +471,12 @@ Phaser.Mouse.prototype = {
             this.mouseOverCallback.call(this.callbackContext, event);
         }
 
-    },
+        if (!this.input.enabled || !this.enabled)
+        {
+            return;
+        }
 
-    /**
-    * Exit a pointer-locked state.
-    * @method Phaser.Mouse#releasePointerLock
-    * @deprecated
-    * @see Phaser.PointerLock#exit
-    */
-    releasePointerLock: function ()
-    {
-
-        console.warn('Deprecated. Please use `input.pointerLock.exit()` instead.');
-
-        return this.input.pointerLock.exit();
-
-    },
-
-    /**
-    * If the browser supports it you can request that the pointer be locked to the browser window.
-    * This is classically known as 'FPS controls', where the pointer can't leave the browser until the user presses an exit key.
-    * If the browser successfully enters a locked state the event Phaser.Mouse.pointerLock will be dispatched and the first parameter will be 'true'.
-    * @method Phaser.Mouse#requestPointerLock
-    * @deprecated
-    * @see Phaser.PointerLock#request
-    */
-    requestPointerLock: function ()
-    {
-
-        console.warn('Deprecated. Please use `input.pointerLock.request()` instead.');
-
-        return this.input.pointerLock.request();
+        this.input.mousePointer.updateButtons(event);
 
     },
 
@@ -544,71 +505,3 @@ Phaser.Mouse.prototype = {
 };
 
 Phaser.Mouse.prototype.constructor = Phaser.Mouse;
-
-/**
-* If the mouse has been Pointer Locked successfully this will be set to true.
-*
-* @name Phaser.Mouse#locked
-* @property {boolean} locked
-* @default
-* @deprecated
-* @see Phaser.PointerLock#locked
-*/
-Object.defineProperty(Phaser.Mouse.prototype, 'locked', {
-
-    get: function ()
-    {
-        return this.input.pointerLock.locked;
-    }
-
-});
-
-/**
-* This event is dispatched when the browser enters or leaves pointer lock state.
-*
-* @name Phaser.Mouse#pointerLock
-* @property {Phaser.Signal} pointerLock
-* @default
-* @deprecated
-* @see Phaser.PointerLock#onChange
-*/
-Object.defineProperty(Phaser.Mouse.prototype, 'pointerLock', {
-
-    get: function ()
-    {
-        return this.input.pointerLock.onChange;
-    }
-
-});
-
-/**
- * @property {function} mouseWheelCallback - A callback that can be fired when the mousewheel is used.
- * @deprecated
- * @see Phaser.MouseWheel#callback
- */
-Object.defineProperty(Phaser.Mouse.prototype, 'mouseWheelCallback', {
-
-    get: function ()
-    {
-        return this.input.mouseWheel.callback;
-    },
-
-    set: function (val)
-    {
-        this.input.mouseWheel.callback = val;
-    }
-
-});
-
-/**
- * The direction of the _last_ mousewheel usage. 1 for up; -1 for down.
- * @property {number} wheelDelta
- * @deprecated
- * @see Phaser.MouseWheel#delta
- */
-Object.defineProperty(Phaser.Mouse.prototype, 'wheelDelta', {
-    get: function ()
-    {
-        return this.input.mouseWheel.delta;
-    }
-});
